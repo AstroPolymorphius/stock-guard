@@ -8,3 +8,4 @@ from sqlalchemy.orm import Mapped, mapped_column
 class Branch(UUIDModel, TimestampedModel):
     pharmacy_id: Mapped[UUID] = mapped_column(ForeignKey, nullable=False, index=True)
     name: Mapped[str] = mapped_column(String, nullable=False)
+    location: Mapped[str] = mapped_column(String, nullable=False)
