@@ -6,7 +6,7 @@ from sqlalchemy.orm import Mapped, mapped_column
 
 #Defines a drug product model
 class Product(UUIDModel, TimestampedModel):
-    name: Mapped[str] = mapped_column(String, nullable=False)
+    name: Mapped[str] = mapped_column(String, nullable=False, index=True)
     generic_name: Mapped[str] = mapped_column(String, nullable=True)
     request_unit: Mapped[str] = mapped_column(String, nullable=False)
     base_unit: Mapped[str] = mapped_column(String, nullable=False)
