@@ -7,6 +7,7 @@ from sqlalchemy.orm import Mapped, mapped_column
 #Defines an employee model
 class Employee(UUIDModel, TimestampedModel):
     first_name: Mapped[str] = mapped_column(String, nullable=False)
+    middle_name: Mapped[str] = mapped_column(String, nullable=True)
     last_name: Mapped[str] = mapped_column(String, nullable=False)
     branch_id: Mapped[UUID] = mapped_column(ForeignKey, nullable=False, index=True)
     email: Mapped[str] = mapped_column(String, nullable=False, index=True)
