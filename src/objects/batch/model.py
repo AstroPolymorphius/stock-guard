@@ -9,15 +9,19 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 if TYPE_CHECKING:
     from src.objects.product.model import Product
     from src.objects.inventory_transaction.model import InventoryTransaction
+    from src.objects.branch.model import Branch
+
 #Defines a drug batch model
 class Batch(UUIDModel, TimestampedModel):
     __table__ = "batches"
     product_id: Mapped[UUID] = mapped_column(ForeignKey, nullable=False, index=True)
     batch_number: Mapped[str] = mapped_column(String, nullable=False, index=True)
-    branch_id: Mapped[UUID] = mapped_column(ForeignKey, nullable=False, index=True)
+    branch_id: Mapped[UUID] = mapped_column(ForeignKey("branches.id"), nullable=False, index=True)
     current_qty: Mapped[int] = mapped_column(Integer, default=0)
     expiry_date: Mapped[date] = mapped_column(Date, nullable=False, index=True)
     #Establishing relationship between product and batch models
     product: Mapped["Product"] = relationship("Product", back_populates="batches")
     #Establishing relationship between batch and inventorytransaction models here in the parent model
     inventory_transactions: Mapped[List["InventoryTransaction"]] = relationship(back_populates="batch")
+    #Establishing relationship between branch and batch models here in the child model
+    branch: Mapped["Product"] = relationship("Product", back_populates="batches")

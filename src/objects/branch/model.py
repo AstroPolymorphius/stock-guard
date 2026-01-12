@@ -8,6 +8,8 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 if TYPE_CHECKING:
     from src.objects.pharmacy.model import Pharmacy
     from src.objects.employee.model import Employee
+    from src.objects.batch.model import Batch
+    
 #Defines a pharmacy branch model
 class Branch(UUIDModel, TimestampedModel):
     __table__ = "branches"
@@ -18,3 +20,5 @@ class Branch(UUIDModel, TimestampedModel):
     pharmacy: Mapped["Pharmacy"] = relationship("Pharmacy", back_populates="branches")
     #Establishing the relationship between branch and employee models here in the parent model
     employees: Mapped[List["Employee"]] = relationship(back_populates="branch")
+    #Establishing the relationship between branch and batch models here in the parent model
+    batches: Mapped[List["Batch"]] = relationship(back_populates="branch")
