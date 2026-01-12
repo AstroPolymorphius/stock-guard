@@ -14,12 +14,12 @@ if TYPE_CHECKING:
 #Defines a drug batch model
 class Batch(UUIDModel, TimestampedModel):
     __table__ = "batches"
-    product_id: Mapped[UUID] = mapped_column(ForeignKey, nullable=False, index=True)
+    product_id: Mapped[UUID] = mapped_column(ForeignKey("products.id"), nullable=False, index=True)
     batch_number: Mapped[str] = mapped_column(String, nullable=False, index=True)
     branch_id: Mapped[UUID] = mapped_column(ForeignKey("branches.id"), nullable=False, index=True)
     current_qty: Mapped[int] = mapped_column(Integer, default=0)
     expiry_date: Mapped[date] = mapped_column(Date, nullable=False, index=True)
-    #Establishing relationship between product and batch models
+    #Establishing relationship between product and batch models here in the child model
     product: Mapped["Product"] = relationship("Product", back_populates="batches")
     #Establishing relationship between batch and inventorytransaction models here in the parent model
     inventory_transactions: Mapped[List["InventoryTransaction"]] = relationship(back_populates="batch")
