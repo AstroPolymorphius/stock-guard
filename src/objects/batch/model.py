@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING
+from typing import List,TYPE_CHECKING
 from datetime import date
 from sqlalchemy import Column,String,Integer,ForeignKey,Date
 from src.models.base import UUIDModel, TimestampedModel
@@ -8,6 +8,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 if TYPE_CHECKING:
     from src.objects.product.model import Product
+    from src.objects.inventory_transaction.model import InventoryTransaction
 #Defines a drug batch model
 class Batch(UUIDModel, TimestampedModel):
     __table__ = "batches"
@@ -16,5 +17,7 @@ class Batch(UUIDModel, TimestampedModel):
     branch_id: Mapped[UUID] = mapped_column(ForeignKey, nullable=False, index=True)
     current_qty: Mapped[int] = mapped_column(Integer, default=0)
     expiry_date: Mapped[date] = mapped_column(Date, nullable=False, index=True)
-    #Establishing relationship between product and batch table
+    #Establishing relationship between product and batch models
     product: Mapped["Product"] = relationship("Product", back_populates="batches")
+    #Establishing relationship between batch and inventorytransaction models here in the parent model
+    inventory_transactions: Mapped[List["InventoryTransaction"]] = relationship(back_populates="batch")
