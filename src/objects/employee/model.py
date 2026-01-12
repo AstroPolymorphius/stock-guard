@@ -7,15 +7,18 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 if TYPE_CHECKING:
     from src.objects.inventory_transaction.model import InventoryTransaction
+    from src.objects.branch.model import Branch
 
 #Defines an employee model
 class Employee(UUIDModel, TimestampedModel):
     first_name: Mapped[str] = mapped_column(String, nullable=False)
     middle_name: Mapped[str] = mapped_column(String, nullable=True)
     last_name: Mapped[str] = mapped_column(String, nullable=False)
-    branch_id: Mapped[UUID] = mapped_column(ForeignKey, nullable=False, index=True)
+    branch_id: Mapped[UUID] = mapped_column(ForeignKey("branches.id"), nullable=False, index=True)
     email: Mapped[str] = mapped_column(String, nullable=False, index=True)
     password: Mapped[str] = mapped_column(String, nullable=False)
     role: Mapped[str] = mapped_column(String, nullable=False, index=True)
     #Establishing relationship between employee and inventorytransaction models here in the parent model
     inventory_transactions: Mapped[List["InventoryTransaction"]] = relationship(back_populates="employee")
+    #Establishing the relationship between branch and employee models here in the child model
+    branch: Mapped["Branch"] = relationship("Branch", back_populates="employees")

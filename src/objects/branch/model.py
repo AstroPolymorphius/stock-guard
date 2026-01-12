@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING
+from typing import List,TYPE_CHECKING
 from sqlalchemy import Column,String,DateTime,ForeignKey
 from src.models.base import UUIDModel, TimestampedModel
 from uuid import UUID
@@ -7,6 +7,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 if TYPE_CHECKING:
     from src.objects.pharmacy.model import Pharmacy
+    from src.objects.employee.model import Employee
 #Defines a pharmacy branch model
 class Branch(UUIDModel, TimestampedModel):
     __table__ = "branches"
@@ -15,3 +16,5 @@ class Branch(UUIDModel, TimestampedModel):
     location: Mapped[str] = mapped_column(String, nullable=False)
     ##Establishing the relationship between pharmacy and branch models here in the child model
     pharmacy: Mapped["Pharmacy"] = relationship("Pharmacy", back_populates="branches")
+    #Establishing the relationship between branch and employee models here in the parent model
+    employees: Mapped[List["Employee"]] = relationship(back_populates="branch")
