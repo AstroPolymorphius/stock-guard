@@ -6,8 +6,7 @@ from sqlalchemy.dialects.postgresql import UUID as pgUUID
 from sqlalchemy.orm import Mapped, mapped_column
 
 #Defines an inventory transaction model
-class Inventory_Transaction(UUIDModel, TimestampedModel):
-    __table__ = "Inventory_Transactions"
+class InventoryTransaction(UUIDModel, TimestampedModel):
     batch_id: Mapped[UUID] = mapped_column(ForeignKey, nullable=False, index=True)
     type: Mapped[str] = mapped_column(String, nullable=False, index=True)
     qty_change: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
