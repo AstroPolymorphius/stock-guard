@@ -9,7 +9,7 @@ if TYPE_CHECKING:
     from src.objects.branch.model import Branch
 #Defines a pharmacy model
 class Pharmacy(UUIDModel, TimestampedModel):
-    __table__ = "pharmacies"
+    __tablename__ = "pharmacies"
     name: Mapped[str] = mapped_column(String, nullable=False)
     #Establishing relationship between pharmacy and branch models here in the parent model
     branches: Mapped[List["Branch"]] = relationship(back_populates="pharmacy")

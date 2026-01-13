@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 #Defines a drug batch model
 class Batch(UUIDModel, TimestampedModel):
-    __table__ = "batches"
+    __tablename__ = "batches"
     product_id: Mapped[UUID] = mapped_column(ForeignKey("products.id"), nullable=False, index=True)
     batch_number: Mapped[str] = mapped_column(String, nullable=False, index=True)
     branch_id: Mapped[UUID] = mapped_column(ForeignKey("branches.id"), nullable=False, index=True)

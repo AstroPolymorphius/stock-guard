@@ -12,7 +12,7 @@ if TYPE_CHECKING:
     
 #Defines a pharmacy branch model
 class Branch(UUIDModel, TimestampedModel):
-    __table__ = "branches"
+    __tablename__ = "branches"
     pharmacy_id: Mapped[UUID] = mapped_column(ForeignKey("pharmacies.id"), nullable=False, index=True)
     name: Mapped[str] = mapped_column(String, nullable=False)
     location: Mapped[str] = mapped_column(String, nullable=False)
