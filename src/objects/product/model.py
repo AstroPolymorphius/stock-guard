@@ -11,6 +11,7 @@ if TYPE_CHECKING:
 class Product(UUIDModel, TimestampedModel):
     name: Mapped[str] = mapped_column(String, nullable=False, index=True)
     generic_name: Mapped[str] = mapped_column(String, nullable=True)
+    gtin: Mapped[str] = mapped_column(String, nullable=True, index=True)
     request_unit: Mapped[str] = mapped_column(String, nullable=False)
     base_unit: Mapped[str] = mapped_column(String, nullable=False)
     conversion_factor: Mapped[int] = mapped_column(Integer, default=0)
