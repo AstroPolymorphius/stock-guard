@@ -19,3 +19,5 @@ class EmployeeOut(BaseModel):
     branch_id: UUID
     role: str
     created_at: datetime
+
+    model_config = ConfigDict(from_attributes=True)
