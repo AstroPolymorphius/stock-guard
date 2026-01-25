@@ -8,7 +8,7 @@ class EmployeeIn(BaseModel):
     last_name: str
     email: str
     password: str
-    branch_id: UUID
+    branch_id: Optional[UUID] = None
     role: str
     
 class EmployeeOut(BaseModel):
@@ -16,7 +16,7 @@ class EmployeeOut(BaseModel):
     first_name: str
     last_name: str
     email: str
-    branch_id: UUID
+    branch_id: Optional[UUID]
     role: str
     created_at: datetime
 
